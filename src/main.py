@@ -24,4 +24,6 @@ if __name__ == "__main__":
     titanic.desvio_padrao(['Survived', 0], 'Age')
 
     titanic.histograma('Age')
+
+    titanic.pizza("Pclass")
    

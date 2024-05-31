@@ -48,6 +48,17 @@ class Titanic:
         return desvio_padrao
 
     def histograma(self, coluna):
-        i = self.df.sort_values(by=coluna)
-        plt.hist(i[coluna], bins=8, label="Histograma")
+
+        ordenados = self.df.sort_values(by=coluna)
+        plt.hist(ordenados[coluna], bins=8)
+        plt.title(f"Histograma {coluna}")
+        plt.show()
+    
+    def pizza(self, coluna):
+
+        contagem = self.df[coluna].value_counts().to_dict()
+
+        plt.pie(contagem.values(), labels=contagem.keys(), shadow=True, startangle=90, autopct='%1.1f%%')
+        plt.axis('equal')
+        plt.title(f"Proporções {coluna}")
         plt.show()
