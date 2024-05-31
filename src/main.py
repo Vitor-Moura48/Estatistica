@@ -1,7 +1,4 @@
-import sys, os, numpy, pandas
-import matplotlib.pyplot as plt
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))) # adiciona as pastas fora de src no caminho python
+from titanic import Titanic
 
 # média dos que sobreviveram (V)
 # mediana da idade dos que sobreviveram (V)
@@ -11,32 +8,20 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 # distribuição normal
 
 if __name__ == "__main__":
-    df = pandas.read_csv("recursos/titanic.csv")
-
-    vivos = df.loc[df['Survived'] == 1]
-    mortos = df.loc[df['Survived'] == 0]
-
-    media_vivos = round(vivos['Age'].mean(), 2)
-    media_mortos = round(mortos['Age'].mean(), 2)
-
-    mediana_vivos = round(vivos['Age'].median(), 2)
-    mediana_mortos = round(mortos['Age'].median(), 2)
-
-    moda_vivos = round(vivos["Age"].mode().values[0])
-    moda_mortos = round(mortos["Age"].mode().values[0])
     
-    desvio_padrao_idade_vivos = vivos['Age'].std().round(3)
-    desvio_padrao_idade_mortos = mortos['Age'].std().round(3)
+    titanic = Titanic()
 
-    print(media_vivos)
-    print(media_mortos)
-    print(mediana_vivos)
-    print(mediana_mortos)
-    print(moda_vivos)
-    print(moda_mortos)
-    print(desvio_padrao_idade_vivos)
-    print(desvio_padrao_idade_mortos)
+    titanic.media(['Survived', 1], 'Age')
+    titanic.media(['Survived', 0], 'Age')
 
-    i = df.sort_values(by='Age')
-    plt.hist(i['Age'], bins=8, label='Histograma Idades')
-    plt.show()
+    titanic.moda(['Survived', 1], 'Age')
+    titanic.moda(['Survived', 0], 'Age')
+
+    titanic.mediana(['Survived', 1], 'Age')
+    titanic.mediana(['Survived', 0], 'Age')
+
+    titanic.desvio_padrao(['Survived', 1], 'Age')
+    titanic.desvio_padrao(['Survived', 0], 'Age')
+
+    titanic.histograma('Age')
+   
