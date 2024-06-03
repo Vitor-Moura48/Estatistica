@@ -62,3 +62,26 @@ class Titanic:
         plt.axis('equal')
         plt.title(f"Proporções {coluna}")
         plt.show()
+
+    def mapa_cores(df, x_col, y_col, color_col, cmap='viridis'):
+
+        x = df[x_col]
+        y = df[y_col]
+        colors = df[color_col]
+
+
+        plt.scatter(x, y, c=colors, cmap=cmap)
+        plt.colorbar()
+        plt.xlabel(x_col)
+        plt.ylabel(y_col)
+        plt.title(f'Dispersão de {x_col} vs {y_col} com mapa de cores de {color_col}')
+        plt.show()
+
+    
+    data = {
+       'x': np.random.randint(1, 20, 15),
+        'y': np.random.randint(80, 120, 15),
+        'valor': np.random.randint(0, 100, 15)
+    }
+    df = pd.DataFrame(data)
+    mapa_cores(df, 'x', 'y', 'valor')
