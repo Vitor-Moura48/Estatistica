@@ -8,7 +8,8 @@ def main_menu():
                     'Calcular média', 
                     'Calcular mediana da idade dos que sobreviveram', 
                     'Calcular moda da idade dos que sobreviveram', 
-                    'Calcular desvio padrão da idade dos que sobreviveram', 
+                    'Calcular desvio padrão da idade dos que sobreviveram',
+                    'Calcular escore z',
                     'Gerar gráfico de dispersão com mapa de cores',
                     'Mostrar histograma da idade',
                     'Mostrar gráfico de pizza para classe',
@@ -26,7 +27,7 @@ if __name__ == "__main__":
     while True:
         choice = main_menu()
         if choice == 'Calcular média':
-            titanic.media([input("Coluna filtro: "), input("Valor filtro: ")], input("Atributo alvo: "))
+            titanic.media([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
         elif choice == 'Calcular mediana da idade dos que sobreviveram':
             titanic.mediana(['Survived', 1], 'Age')
         elif choice == 'Calcular moda da idade dos que sobreviveram':
@@ -39,6 +40,9 @@ if __name__ == "__main__":
             titanic.histograma('Age')
         elif choice == 'Mostrar gráfico de pizza para classe':
             titanic.pizza('Pclass')
+        elif choice == 'Calcular escore z':
+            titanic.escore_z([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
         elif choice == 'Sair':
             print("Saindo...")
             break
+        

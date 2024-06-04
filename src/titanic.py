@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import inquirer
 import seaborn as sns
 from scipy.stats import norm
+from scipy import stats
 from colorama import Fore
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))) # adiciona as pastas fora de src no caminho python
@@ -85,3 +86,13 @@ class Titanic:
         plt.ylabel(y_col)
         plt.title(f'{y_col} vs {x_col} (Tamanho do ponto proporcional a {size_col})')
         plt.show()
+
+    def escore_z(self, filtro, coluna):
+        df_filtrado = self.filtrar_df(filtro)
+        coluna_nova = df_filtrado.dropna(subset=[coluna])
+        lista_df_filtrados = coluna_nova[coluna].tolist()
+       
+        z_escore = stats.zscore(lista_df_filtrados)
+        
+        print(f"{Fore.GREEN}z_escore {coluna} onde {filtro[0]} == {filtro[1]}: {z_escore} {Fore.RESET}\n\n")
+        return z_escore
