@@ -96,3 +96,20 @@ class Titanic:
         
         print(f"{Fore.GREEN}z_escore {coluna} onde {filtro[0]} == {filtro[1]}: {z_escore} {Fore.RESET}\n\n")
         return z_escore
+    
+    def correlacao_entre_sobrevivencia_e_idade(self):
+
+        df_filtrado = self.df.dropna(subset=['Age'])  
+        df_filtrado = df_filtrado[['Survived', 'Age']] 
+
+        correlacao = df_filtrado['Survived'].corr(df_filtrado['Age'])
+
+        plt.figure(figsize=(10, 8))
+        sns.regplot(data=df_filtrado, x='Age', y='Survived')
+        plt.title(f'Correlação de Pearson entre Survived e Age: {correlacao:.2f}')
+        plt.xlabel('Age')
+        plt.ylabel('Survived')
+        plt.show()
+
+        return correlacao
+
