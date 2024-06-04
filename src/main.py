@@ -6,13 +6,13 @@ def main_menu():
                 message="Escolha uma opção",
                 choices=[
                     'Calcular média', 
-                    'Calcular mediana da idade dos que sobreviveram', 
-                    'Calcular moda da idade dos que sobreviveram', 
-                    'Calcular desvio padrão da idade dos que sobreviveram',
+                    'Calcular mediana', 
+                    'Calcular moda', 
+                    'Calcular desvio padrão',
                     'Calcular escore z',
-                    'Gerar gráfico de dispersão com mapa de cores',
-                    'Mostrar histograma da idade',
-                    'Mostrar gráfico de pizza para classe',
+                    'Gráfico de dispersão com mapa de cores',
+                    'Histograma',
+                    'Gráfico de pizza',
                     'Sair'
                 ],
             ),
@@ -28,20 +28,28 @@ if __name__ == "__main__":
         choice = main_menu()
         if choice == 'Calcular média':
             titanic.media([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
-        elif choice == 'Calcular mediana da idade dos que sobreviveram':
-            titanic.mediana(['Survived', 1], 'Age')
-        elif choice == 'Calcular moda da idade dos que sobreviveram':
-            titanic.moda(['Survived', 1], 'Age')
-        elif choice == 'Calcular desvio padrão da idade dos que sobreviveram':
-            titanic.desvio_padrao(['Survived', 1], 'Age')
-        elif choice == 'Gerar gráfico de dispersão com mapa de cores':
+
+        elif choice == 'Calcular mediana':
+            titanic.mediana([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
+
+        elif choice == 'Calcular moda':
+            titanic.moda([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
+
+        elif choice == 'Calcular desvio padrão':
+            titanic.desvio_padrao([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
+
+        elif choice == 'Gráfico de dispersão com mapa de cores':
             titanic.mapa_cores('Pclass', 'Age', 'Survived')
-        elif choice == 'Mostrar histograma da idade':
-            titanic.histograma('Age')
-        elif choice == 'Mostrar gráfico de pizza para classe':
-            titanic.pizza('Pclass')
+
+        elif choice == 'Histograma':
+            titanic.histograma(input("Dado: "))
+
+        elif choice == 'Gráfico de pizza':
+            titanic.pizza(input("Dado: "))
+
         elif choice == 'Calcular escore z':
             titanic.escore_z([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
+
         elif choice == 'Sair':
             print("Saindo...")
             break
