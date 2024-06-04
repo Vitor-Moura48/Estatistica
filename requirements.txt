@@ -3,3 +3,4 @@ numpy==1.26.4
 pandas==2.2.2
 inquirer==3.2.4
 spicy==0.16.0
+seaborn==0.13.2

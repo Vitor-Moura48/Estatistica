@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import inquirer
 import seaborn as sns
 from scipy.stats import norm
+from colorama import Fore
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))) # adiciona as pastas fora de src no caminho python
 
@@ -14,30 +15,32 @@ class Titanic:
         self.df = pd.read_csv("recursos/titanic.csv")
     
     def filtrar_df(self, filtro):
+        if type(filtro[1]) == str:
+            filtro[1] = int(filtro[1]) if filtro[1].isdigit() else filtro[1]
         return self.df.loc[self.df[filtro[0]] == filtro[1]]
     
     def media(self, filtro, coluna):
         df_filtrado = self.filtrar_df(filtro)
         media = round(df_filtrado[coluna].mean(), 2)
-        print(f"média {coluna} onde {filtro[0]} == {filtro[1]}: {media}")
+        print(f"{Fore.GREEN}média {coluna} onde {filtro[0]} == {filtro[1]}: {media} {Fore.RESET}\n\n")
         return media
     
     def moda(self, filtro, coluna):
         df_filtrado = self.filtrar_df(filtro)
         moda = round(df_filtrado[coluna].mode().values[0])
-        print(f"moda {coluna} onde {filtro[0]} == {filtro[1]}: {moda}")
+        print(f"{Fore.GREEN}moda {coluna} onde {filtro[0]} == {filtro[1]}: {moda} {Fore.RESET}\n\n")
         return moda
     
     def mediana(self, filtro, coluna):
         df_filtrado = self.filtrar_df(filtro)
         mediana = round(df_filtrado[coluna].median(), 2)
-        print(f"mediana {coluna} onde {filtro[0]} == {filtro[1]}: {mediana}")
+        print(f"{Fore.GREEN}mediana {coluna} onde {filtro[0]} == {filtro[1]}: {mediana} {Fore.RESET}\n\n")
         return mediana
 
     def desvio_padrao(self, filtro, coluna):
         df_filtrado = self.filtrar_df(filtro)
         desvio_padrao = df_filtrado[coluna].std().round(3)
-        print(f"desvio_padrao {coluna} onde {filtro[0]} == {filtro[1]}: {desvio_padrao}")
+        print(f"{Fore.GREEN}desvio_padrao {coluna} onde {filtro[0]} == {filtro[1]}: {desvio_padrao} {Fore.RESET}\n\n")
         return desvio_padrao
 
     def histograma(self, coluna):
