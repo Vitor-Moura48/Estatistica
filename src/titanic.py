@@ -66,3 +66,22 @@ class Titanic:
         plt.ylabel(y_col)
         plt.title(f'Dispersão de {x_col} vs {y_col} com mapa de cores de {color_col}')
         plt.show()
+
+    def pontos_proporcionais(self, x_col='Age', y_col='Fare', size_col='Fare', color_col='Survived', scale_factor=2, cmap='viridis'):
+        filtered_data = self.df.dropna(subset=[x_col, y_col, size_col])
+        plt.figure(figsize=(10, 6))
+        scatter = plt.scatter(
+            x=filtered_data[x_col],
+            y=filtered_data[y_col],
+            s=filtered_data[size_col] * scale_factor,
+            c=filtered_data[color_col],
+            cmap=cmap,
+            alpha=0.6,
+            edgecolors='w',
+            linewidth=0.5
+        )
+        plt.colorbar(scatter, label=color_col)
+        plt.xlabel(x_col)
+        plt.ylabel(y_col)
+        plt.title(f'{y_col} vs {x_col} (Tamanho do ponto proporcional a {size_col})')
+        plt.show()
