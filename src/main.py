@@ -13,6 +13,7 @@ def main_menu():
                     'Gráfico de dispersão com mapa de cores',
                     'Histograma',
                     'Gráfico de pizza',
+                    'Gráfico dos pontos proporcionais',
                     'Sair'
                 ],
             ),
@@ -49,6 +50,9 @@ if __name__ == "__main__":
 
         elif choice == 'Calcular escore z':
             titanic.escore_z([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
+
+        elif choice == 'Gráfico dos pontos proporcionais':
+            titanic.pontos_proporcionais('Age', 'Fare', 'Fare', 'Survived', 2, 'viridis')
 
         elif choice == 'Sair':
             print("Saindo...")
