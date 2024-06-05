@@ -14,11 +14,13 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 class Titanic:
     def __init__(self):
         self.df = pd.read_csv("recursos/titanic.csv")
+        self.df = self.df.dropna(how='any') 
     
     def filtrar_df(self, filtro):
         if type(filtro[1]) == str:
             filtro[1] = int(filtro[1]) if filtro[1].isdigit() else filtro[1]
-        return self.df.loc[self.df[filtro[0]] == filtro[1]]
+        df_filtrado = self.df.loc[self.df[filtro[0]] == filtro[1]]
+        return df_filtrado
     
     def media(self, filtro, coluna):
         df_filtrado = self.filtrar_df(filtro)
@@ -89,8 +91,7 @@ class Titanic:
 
     def escore_z(self, filtro, coluna):
         df_filtrado = self.filtrar_df(filtro)
-        coluna_nova = df_filtrado.dropna(subset=[coluna])
-        lista_df_filtrados = coluna_nova[coluna].tolist()
+        lista_df_filtrados = df_filtrado[coluna].tolist()
        
         z_escore = stats.zscore(lista_df_filtrados)
         
@@ -99,9 +100,7 @@ class Titanic:
     
     def correlacao_entre_sobrevivencia_e_idade(self):
 
-        df_filtrado = self.df.dropna(subset=['Age'])  
         df_filtrado = df_filtrado[['Survived', 'Age']] 
-
         correlacao = df_filtrado['Survived'].corr(df_filtrado['Age'])
 
         plt.figure(figsize=(10, 8))
