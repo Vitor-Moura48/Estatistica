@@ -14,6 +14,8 @@ def main_menu():
                     'Histograma',
                     'Gráfico de pizza',
                     'Gráfico dos pontos proporcionais',
+                    'Gráfico de correlação entre sobrevivência e idade',
+                    'Comparar Gráficos',
                     'Sair'
                 ],
             ),
@@ -54,6 +56,12 @@ if __name__ == "__main__":
         elif choice == 'Gráfico dos pontos proporcionais':
             titanic.pontos_proporcionais('Age', 'Fare', 'Fare', 'Survived', 2, 'viridis')
 
+        elif choice == 'Gráfico de correlação entre sobrevivência e idade':
+            titanic.correlacao_entre_sobrevivencia_e_idade()
+
+        elif choice == 'Comparar Gráficos':
+            titanic.comparar_graficos()
+            
         elif choice == 'Sair':
             print("Saindo...")
             break

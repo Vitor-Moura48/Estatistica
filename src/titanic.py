@@ -12,6 +12,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 class Titanic:
     def __init__(self):
         self.df = pd.read_csv("recursos/titanic.csv")
+        self.df = self.df.dropna(how='any') 
 
     def obter_filtro(self):
         coluna_filtro = self.colunas_menu("Escolha uma coluna de filtro")
@@ -21,7 +22,8 @@ class Titanic:
     def filtrar_df(self, coluna, valor):
         if type(valor) == str:
             valor = int(valor) if valor.isdigit() else valor
-        return self.df.loc[self.df[coluna] == valor]
+        df_filtrado = self.df.loc[self.df[coluna] == valor]
+        return df_filtrado
     
     def media(self):
         coluna_filtro, valor_filtro = self.obter_filtro()
@@ -102,14 +104,13 @@ class Titanic:
 
     def escore_z(self, filtro, coluna):
         df_filtrado = self.filtrar_df(filtro)
-        coluna_nova = df_filtrado.dropna(subset=[coluna])
-        lista_df_filtrados = coluna_nova[coluna].tolist()
+        lista_df_filtrados = df_filtrado[coluna].tolist()
        
         z_escore = stats.zscore(lista_df_filtrados)
         
         print(f"{Fore.GREEN}z_escore {coluna} onde {filtro[0]} == {filtro[1]}: {z_escore} {Fore.RESET}\n\n")
         return z_escore
-
+        return z_escore
     def colunas_menu(self, texto):
         questions = [
                 inquirer.List('option',
