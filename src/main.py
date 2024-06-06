@@ -28,25 +28,25 @@ if __name__ == "__main__":
     while True:
         choice = main_menu()
         if choice == 'Calcular média':
-            titanic.media([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
+            titanic.media()
 
         elif choice == 'Calcular mediana':
-            titanic.mediana([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
+            titanic.mediana()
 
         elif choice == 'Calcular moda':
-            titanic.moda([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
+            titanic.moda()
 
         elif choice == 'Calcular desvio padrão':
-            titanic.desvio_padrao([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
+            titanic.desvio_padrao()
 
         elif choice == 'Gráfico de dispersão com mapa de cores':
             titanic.mapa_cores('Pclass', 'Age', 'Survived')
 
         elif choice == 'Histograma':
-            titanic.histograma(input("Dado: "))
+            titanic.histograma()
 
         elif choice == 'Gráfico de pizza':
-            titanic.pizza(input("Dado: "))
+            titanic.pizza()
 
         elif choice == 'Calcular escore z':
             titanic.escore_z([input("Coluna filtro: "), input("Valor filtro: ")], input("Dado: "))
