@@ -65,8 +65,9 @@ class Titanic:
         plt.show()
     
     def pizza(self):
+        df = pd.read_csv("recursos/titanic.csv")
         coluna = self.colunas_menu("Escolha a coluna que deseja analizar")
-        contagem = self.df[coluna].value_counts().to_dict()
+        contagem = df[coluna].value_counts().to_dict()
         plt.pie(contagem.values(), labels=contagem.keys(), shadow=True, startangle=90, autopct='%1.1f%%')
         plt.axis('equal')
         plt.title(f"Proporções {coluna}")
@@ -110,7 +111,7 @@ class Titanic:
         
         print(f"{Fore.GREEN}z_escore {coluna} onde {filtro[0]} == {filtro[1]}: {z_escore} {Fore.RESET}\n\n")
         return z_escore
-        return z_escore
+
     def colunas_menu(self, texto):
         questions = [
                 inquirer.List('option',
