@@ -112,6 +112,52 @@ class Titanic:
         print(f"{Fore.GREEN}z_escore {coluna} onde {filtro[0]} == {filtro[1]}: {z_escore} {Fore.RESET}\n\n")
         return z_escore
 
+    def correlacao_entre_sobrevivencia_e_idade(self):
+
+        df_filtrado = self.df.dropna(subset=['Age'])  
+        df_filtrado = df_filtrado[['Survived', 'Age']] 
+
+        correlacao = df_filtrado['Survived'].corr(df_filtrado['Age'])
+
+        plt.figure(figsize=(10, 8))
+        sns.regplot(data=df_filtrado, x='Age', y='Survived')
+        plt.title(f'Correlação de Pearson entre Survived e Age: {correlacao:.2f}')
+        plt.xlabel('Age')
+        plt.ylabel('Survived')
+        plt.show()
+
+        return correlacao
+
+    def comparar_graficos(self):
+        while True:
+            print("Escolha o gráfico que deseja visualizar:")
+            print("1. Mapa de Cores (Pclass, Age, Survived)")
+            print("2. Pontos Proporcionais (Age, Fare, Fare, Survived)")
+            print("3. Correlação entre Sobrevivência e Idade")
+            print("4. Histograma")
+            print("5. Gráfico de Pizza")
+            print("0. Sair")
+
+            choice = input("Digite o número correspondente ou 0 para sair: ")
+
+            if choice == '1':
+                self.mapa_cores('Pclass', 'Age', 'Survived')
+            elif choice == '2':
+                self.pontos_proporcionais('Age', 'Fare', 'Fare', 'Survived', 2, 'viridis')
+            elif choice == '3':
+                self.correlacao_entre_sobrevivencia_e_idade()
+            elif choice == '4':
+                coluna = input("Digite o nome da coluna: ")
+                self.histograma(coluna)
+            elif choice == '5':
+                coluna = input("Digite o nome da coluna: ")
+                self.pizza(coluna)
+            elif choice == '0':
+                print("Saindo...")
+                break
+            else:
+                print("Opção inválida. Por favor, escolha um número válido.")
+
     def colunas_menu(self, texto):
         questions = [
                 inquirer.List('option',
