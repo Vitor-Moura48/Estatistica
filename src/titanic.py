@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import inquirer
+import seaborn as sns
 from scipy.stats import norm
 from scipy import stats
 from colorama import Fore
@@ -13,6 +14,11 @@ class Titanic:
     def __init__(self):
         self.df = pd.read_csv("recursos/titanic.csv")
         self.df = self.df.dropna(how='any') 
+
+    def filtrar_df2(self, filtro):
+        if type(filtro[1]) == str:
+            filtro[1] = int(filtro[1]) if filtro[1].isdigit() else filtro[1]
+        return self.df.loc[self.df[filtro[0]] == filtro[1]]
 
     def obter_filtro(self):
         coluna_filtro = self.colunas_menu("Escolha uma coluna de filtro")
@@ -104,8 +110,9 @@ class Titanic:
         plt.show()
 
     def escore_z(self, filtro, coluna):
-        df_filtrado = self.filtrar_df(filtro)
-        lista_df_filtrados = df_filtrado[coluna].tolist()
+        df_filtrado = self.filtrar_df2(filtro)
+        coluna_nova = df_filtrado.dropna(subset=[coluna])
+        lista_df_filtrados = coluna_nova[coluna].tolist()
        
         z_escore = stats.zscore(lista_df_filtrados)
         
@@ -130,15 +137,23 @@ class Titanic:
 
     def comparar_graficos(self):
         while True:
-            print("Escolha o gráfico que deseja visualizar:")
-            print("1. Mapa de Cores (Pclass, Age, Survived)")
-            print("2. Pontos Proporcionais (Age, Fare, Fare, Survived)")
-            print("3. Correlação entre Sobrevivência e Idade")
-            print("4. Histograma")
-            print("5. Gráfico de Pizza")
-            print("0. Sair")
-
-            choice = input("Digite o número correspondente ou 0 para sair: ")
+            questions = [
+                inquirer.List(
+                    'choice',
+                    message="Escolha o gráfico que deseja visualizar",
+                    choices=[
+                        ('Mapa de Cores (Pclass, Age, Survived)', '1'),
+                        ('Pontos Proporcionais (Age, Fare, Fare, Survived)', '2'),
+                        ('Correlação entre Sobrevivência e Idade', '3'),
+                        ('Histograma', '4'),
+                        ('Gráfico de Pizza', '5'),
+                        ('Sair', '0')
+                    ],
+                )
+            ]
+            
+            answers = inquirer.prompt(questions)
+            choice = answers['choice']
 
             if choice == '1':
                 self.mapa_cores('Pclass', 'Age', 'Survived')
@@ -147,11 +162,9 @@ class Titanic:
             elif choice == '3':
                 self.correlacao_entre_sobrevivencia_e_idade()
             elif choice == '4':
-                coluna = input("Digite o nome da coluna: ")
-                self.histograma(coluna)
+                self.histograma()
             elif choice == '5':
-                coluna = input("Digite o nome da coluna: ")
-                self.pizza(coluna)
+                self.pizza()
             elif choice == '0':
                 print("Saindo...")
                 break
